@@ -1,0 +1,10 @@
+*.log
+*.aux
+*.synctex*
+*.pdf
+*.marnin
+*.marnout
+*.out
+*.fnchk
+select-book.tex
+*.toc
