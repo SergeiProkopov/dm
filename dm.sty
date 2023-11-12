@@ -1,0 +1,206 @@
+\NeedsTeXFormat{LaTeX2e}[2000/06/01]
+\ProvidesPackage{dm}[2023/01/05 v1.0]
+\RequirePackage{fancyhdr,color,xcolor,xltxtra,polyglossia,lettrine,datetime,titlesec,titletoc}
+%\RequirePackage[Conny]{fncychap}
+\RequirePackage[plainpages=false,
+                hyperfootnotes=false,
+                pdfpagelabels,
+                colorlinks,
+                linkcolor=black,%
+                anchorcolor=black,
+                citecolor=black,
+                filecolor=black,
+                menucolor=black,
+                urlcolor=black]{hyperref}
+
+% conditional markup tuning (must be at the top to make it available to the rest of the package)
+\def\tunemarkuptag#1{\@namedef{tune@markup@#1}{}}
+\def\tunemarkup#1#2{\@ifundefined{tune@markup@#1}{}{#2}}
+\def\tunemarkuptwo#1#2#3{\@ifundefined{tune@markup@#1}{#3}{#2}}
+
+\renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}[display]
+  {\Huge\rmfamily\centering}  
+  {\thechapter}
+  {10pt}
+  {\Huge\itshape}
+\titlespacing{\chapter}{0pt}{*10}{*9}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\titlecontents{chapter}
+[2em] %отступ слева
+{\smallskip} %сверху каждой части содержания
+{\itshape\contentslabel[\hfill\normalfont\thecontentslabel]{2em}\hfill}%\thecontentslabel
+{}% <numberless-entry-format>
+{\hfill\contentspage}
+[\smallskip]%снизу каждой части содержания
+
+\renewcommand{\@pnumwidth}{3em}
+
+% various page sizes
+\tunemarkuptag{pgnexus10}
+%\tunemarkuptag{pgthinmob}
+%\tunemarkuptag{pgkoboaurahd}
+
+% various font families
+\tunemarkuptag{garamond}
+
+% Google Nexus 10 (or any Android 10" colour device)
+\tunemarkup{pgnexus10}{\RequirePackage[dvips,headheight=25pt,headsep=4pt,vmargin={0.25in,0.15in},hmargin={0.1in},twoside=true,papersize={135.0mm,216mm}]{geometry}}
+
+\setdefaultlanguage{russian}
+
+% number of lines for lettrine
+\setcounter{DefaultLines}{3}
+
+\tunemarkup{garamond}{%
+\def\mainfontname{Garamond Premier Pro}
+\def\lettrinefontname{Garamond Premier Pro}
+\def\titlefontname{Garamond Premier Pro Semibold Display}
+\def\subtitlefontname{Garamond Premier Pro Semibold Display}
+\def\mdheadingfont{Garamond Premier Pro Medium Caption}
+\def\headingfont{Garamond Premier Pro Semibold Caption}
+}
+
+\newfontfamily\lettrinefontfamily[Mapping=tex-text]{\lettrinefontname}
+\renewcommand{\LettrineFontHook}{\lettrinefontfamily}
+
+\setmainfont[Mapping=tex-text]{\mainfontname}
+%\newfontfamily\libertinefont[Mapping=tex-text]{Linux Libertine O}
+%\newcommand{\tux}{{\libertinefont ^^^^e000}}
+\newfontfamily\titlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\titlefontname}
+\newfontfamily\subtitlefont[Letters=Uppercase,LetterSpace=3.0,WordSpace=2.0,Mapping=tex-text]{\subtitlefontname}
+
+\newcommand*{\bibemph}[1]{\emph{#1}}
+\newcommand{\clp}{\clearpage{\pagestyle{empty}\cleardoublepage}}
+
+\protected\def\bib@raise@anchor#1{%
+  \ifhmode
+    \iftrue
+      \Hy@raisedlink{#1}%
+    \else
+      \vadjust pre{%
+        %\smash{#1}%
+        \@ovri\dp\strutbox \kern-\@ovri
+        \setbox\z@\hb@xt@\hsize{#1}%
+        \ht\z@\z@ \dp\z@\@ovri \box\z@
+        \kern\z@
+      }%
+    \fi
+  \else#1\fi
+}
+
+% vine leaves
+\def\hr{j}
+\def\hhr{k}
+\def\hhhr{l}
+\def\hhhhr{i}
+\def\hl{j}
+\def\hhl{k}
+\def\hhhl{l}
+\def\hhhhl{i}
+\def\topplank{fghe}
+\def\botplank{ghef}
+\def\topl{a}
+\def\topprer{f}
+\def\topr{b}
+\def\botl{c}
+\def\botprer{g}
+\def\botr{d}
+
+\def\mytoday{{\ddmmyyyydate\today}}
+
+\newcommand{\titleframe}{%
+\begingroup
+\tunemarkup{pgnexus10}{%
+\setlength{\unitlength}{13.2pt}%
+\fontsize{\unitlength}{\unitlength}\usefont{U}{webo}{xl}{n}
+   \begin{picture}(0,0)(1.0,-44.0)%
+     \color{myblue}
+     % top left corner
+     \put(0,0){\topl}
+     % top plank
+     \multiput(1.2,0)(4.8,0){5}{\topplank}
+     % top right corner
+     \put(25.2,0){\topprer}
+     \put(26.4,0){\topr}
+     % right plank
+     \multiput(26.3,-1.2)(0,-4.7){9}{\hr}
+     \multiput(26.3,-2.4)(0,-4.7){9}{\hhr}
+     \multiput(26.3,-3.6)(0,-4.7){9}{\hhhr}
+     \multiput(26.3,-4.8)(0,-4.7){9}{\hhhhr}
+     % left plank
+     \multiput(0,-1.2)(0,-4.7){9}{\hhhhl}
+     \multiput(0,-2.4)(0,-4.7){9}{\hl}
+     \multiput(0,-3.6)(0,-4.7){9}{\hhl}
+     \multiput(0,-4.8)(0,-4.7){9}{\hhhl}
+     % bottom left corner
+     \put(0,-43.6){\botl}
+     % bottom plank
+     \multiput(1.2,-43.6)(4.8,0){5}{\botplank}
+     % bottom right corner
+     \put(25.2,-43.6){\botprer}
+     \put(26.4,-43.6){\botr}
+   \end{picture}%
+}%
+\tunemarkup{pgkoboaurahd}{%
+\setlength{\unitlength}{6.6pt}%
+\fontsize{\unitlength}{\unitlength}\usefont{U}{webo}{xl}{n}
+   \begin{picture}(0,0)(1.6,-56.0)%
+     % top left corner
+     \put(0,0){\topl}
+     % top plank
+     \multiput(1,0)(4,0){10}{\topplank}
+     % top right corner
+     \put(41,0){\topprer}
+     \put(42,0){\topr}
+     % right plank
+     \multiput(42,-1)(0,-4){14}{\hr}
+     \multiput(42,-2)(0,-4){14}{\hhr}
+     \multiput(42,-3)(0,-4){14}{\hhhr}
+     \multiput(42,-4)(0,-4){14}{\hhhhr}
+     % left plank
+     \multiput(0,-1)(0,-4){14}{\hhhhl}
+     \multiput(0,-2)(0,-4){14}{\hl}
+     \multiput(0,-3)(0,-4){14}{\hhl}
+     \multiput(0,-4)(0,-4){14}{\hhhl}
+     % bottom left corner
+     \put(0,-57){\botl}
+     % bottom plank
+     \multiput(1,-57)(4,0){10}{\botplank}
+     % bottom right corner
+     \put(41,-57){\botprer}
+     \put(42,-57){\botr}
+   \end{picture}%
+}%
+\endgroup
+}
+
+\DeclareTextAccent{\'}{\encodingdefault}{180}
+
+\setlength{\columnsep}{3.5mm}
+\setlength\parindent{14\p@}
+
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\leftmark}
+
+\definecolor{myblue}{rgb}{0.0, 0.3, 0.6}
+
+\tunemarkup{pgnexus10}{%
+\newcommand{\titlesepbig}{{\usefont{U}{webo}{xl}{n}\Large\textcolor{myblue}{ahb}}}
+\newcommand{\epigraphfontsize}{\fontsize{14}{17}\selectfont}
+\newcommand{\mainfontsize}{\fontsize{16.5}{19}\selectfont}
+\newcommand{\titlefontsize}{\fontsize{19}{22}\selectfont}
+\newcommand{\subtitlefontsize}{\fontsize{15}{17}\selectfont}
+\newcommand{\mainfontsizehr}{16.5/19}
+\renewcommand{\footnotesize}{\fontsize{13}{16}\selectfont}
+\tolerance=3000
+}
+
+\begin{hyphenrules}{russian}
+\hyphenation{%
+раз-оружения
+пре-до-ста-вле-ны
+устрой-ства
+}
+\end{hyphenrules}
