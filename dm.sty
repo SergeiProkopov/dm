@@ -18,6 +18,20 @@
 \def\tunemarkup#1#2{\@ifundefined{tune@markup@#1}{}{#2}}
 \def\tunemarkuptwo#1#2#3{\@ifundefined{tune@markup@#1}{#3}{#2}}
 
+\AtBeginDocument{%
+\hypersetup{%
+  pdftitle={Демократический манифест (Эмери Ривз)},%
+  pdfauthor={Сергей Прокопов <sergeiprokopov@gmail.com>},%
+  pdfcreator={Bibles.org.uk Типографская среда на базе TeX Live 2023},%
+  pdfsubject={демократия,США},%
+  pdfkeywords={демократия,США,урантийские документы},%
+  pdflang={Russian},%
+  pdfcreationdate={D:20230123111100Z},%
+  pdfmoddate={D:\pdfdate-00'00'}%
+}%
+}
+
+
 \renewcommand{\thechapter}{\Roman{chapter}}
 \titleformat{\chapter}[display]
   {\Huge\rmfamily\centering}  
