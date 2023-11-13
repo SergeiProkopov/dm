@@ -31,6 +31,8 @@
 }%
 }
 
+% сквозная нумерация сносок
+\counterwithout{footnote}{chapter}
 
 \renewcommand{\thechapter}{\Roman{chapter}}
 \titleformat{\chapter}[display]
@@ -60,7 +62,7 @@
 \tunemarkuptag{garamond}
 
 % Google Nexus 10 (or any Android 10" colour device)
-\tunemarkup{pgnexus10}{\RequirePackage[dvips,headheight=25pt,headsep=4pt,vmargin={0.25in,0.15in},hmargin={0.1in},twoside=true,papersize={135.0mm,216mm}]{geometry}}
+\tunemarkup{pgnexus10}{\RequirePackage[dvips,headheight=25pt,headsep=4pt,vmargin={0.25in,0.15in},hmargin={0.1in},twoside=false,papersize={135.0mm,216mm}]{geometry}}
 
 \setmainlanguage[babelshorthands=true]{russian}
 
